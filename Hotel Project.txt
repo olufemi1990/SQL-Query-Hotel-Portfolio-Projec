@@ -1,0 +1,42 @@
+Portfolio project
+
+Develop a Database to Analyze and Visualiz Hotel Booking Data
+
+Stakeholders Request
+1. Build a visual story or dashboard using Power BI for presentation
+"is our Hotel revenue growing by year, should we increase our parking lot size, what trends can we see in the data"
+
+Project Pipeline
+1. Build a Database
+2. Develop the SQl Query
+3. Connect Power BI to the Database
+4. Visualize
+5. Summarize findings
+
+
+SQL Server Query DESKTOP-JIUK3OQ\SQL2022
+
+with hotels as (
+Select * 
+From dbo.['2018$']
+union
+Select *
+from dbo.['2019$']
+union
+Select *
+from dbo.['2020$'])
+
+
+Select * 
+from hotels
+left join dbo.market_segment$
+on hotels.market_segment = market_segment$.market_segment
+left join dbo.meal_cost$
+on meal_cost$.meal = hotels.meal
+
+
+select
+arrival_date_year, hotel,
+round(sum((stays_in_week_nights+stays_in_weekend_nights)*adr),2) as revenue 
+from hotels
+group by arrival_date_year, hotel
